@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MySQL.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///c%3A/Users/z2507/AppData/Roaming/Typora/themes/github.css" type="text/css">
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</h1>
+<h2 id="%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0">数据库概述</h2>
+<ul>
+<li><strong>DataBase(DB) 数据库</strong>：存储数据的仓库，数据是有组织的进行存储</li>
+<li><strong>Database Management SyStem(DBMS) 数据库管理系统</strong>：操纵和管理数据库的大型软件</li>
+<li><strong>SQL</strong>：操作关系型数据库的编程语言，定义了一套操作关系型数据库统一标准</li>
+</ul>
+<h2 id="mysql-%E6%95%B0%E6%8D%AE%E5%BA%93">MySQL 数据库</h2>
+<h3 id="%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93-rdbms">关系型数据库 (RDBMS)</h3>
+<ul>
+<li><strong>概念</strong>：建立在关系模型上，由多张相互连接的二维表组成的数据库</li>
+<li><strong>特点</strong>：
+<ol>
+<li>使用表存储数据，格式统一，便于维护</li>
+<li>使用 <strong>SQL</strong> 语言操作，标准统一，使用方便</li>
+</ol>
+</li>
+</ul>
+<h2 id="sql">SQL</h2>
+<ul>
+<li>
+<p><strong>SQL 通用语法</strong></p>
+<ol>
+<li>SQL 语句可以单行或多行书写，分号结尾</li>
+<li>SQL 语句可以使用空格 / 缩进增强语句的可读性</li>
+<li>MYSQL 数据库的 SQL 语句不区分大小写</li>
+<li>注释：-- / #</li>
+</ol>
+</li>
+<li>
+<p><strong>SQL 分类</strong></p>
+<ol>
+<li><strong>DDL (Data Definition)</strong>: 数据定义语言，用来定义数据库对象 (数据库，表，字段)</li>
+<li><strong>DML (Data Manipulate)</strong>: 数据操作语言，用来对数据库表中数据进行增删改</li>
+<li><strong>DQL (Data Query)</strong>: 数据查询语言，用来查询数据库中表的记录</li>
+<li><strong>DCL (Data Control)</strong>：数据控制语言，用来创建数据库用户，控制数据库的访问权限</li>
+</ol>
+</li>
+</ul>
+<h3 id="ddl"><strong>DDL</strong></h3>
+<ul>
+<li>
+<p><strong>DDL - 数据库操作</strong></p>
+<ul>
+<li>查询所有数据库<br>
+<code>show databases;</code></li>
+<li>查询当前数据库<br>
+<code>select database();</code></li>
+<li>创建<br>
+<code>create database [IF NOT EXISTS] 数据库名 [DEFAULT CHARSET 字符集] [COLLATE 排序规则];</code></li>
+<li>删除<br>
+<code>drop database [IF EXISTS] 数据库名;</code></li>
+<li>使用<br>
+<code>use 数据库名;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>DDL - 表操作 - 查询</strong></p>
+<ul>
+<li>查询当前数据库所有表<br>
+<code>show tables;</code></li>
+<li>查询表结构<br>
+<code>desc 表名;</code></li>
+<li>查询指定表的建表语句<br>
+<code>show create table 表名;</code></li>
+</ul>
+</li>
+<li>
+<p><strong>DDL - 表操作 - 创建</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> 表名 (
+    字段<span class="hljs-number">1</span> 字段<span class="hljs-number">1</span> 类型 [<span class="hljs-keyword">COMMENT</span> 字段<span class="hljs-number">1</span> 注释],
+    字段<span class="hljs-number">2</span> 字段<span class="hljs-number">2</span> 类型 [<span class="hljs-keyword">COMMENT</span> 字段<span class="hljs-number">2</span> 注释],
+    )[<span class="hljs-keyword">COMMENT</span> 表注释];
+</div></code></pre>
+<blockquote>
+<p>最后一个字段后面没有逗号</p>
+</blockquote>
+</li>
+<li>
+<p><strong>DDL - 表操作 - 数据类型</strong></p>
+</li>
+</ul>
+<ol>
+<li>数值类型
+<ol>
+<li><code>TINYINT</code>: 占用 1 字节</li>
+<li><code>SMALLINT</code>: 占用 2 字节</li>
+<li><code>MEDIUMINT</code>: 占用 3 字节</li>
+<li><code>INT</code>: 占用 4 字节</li>
+<li><code>BIGINT</code>: 占用 8 字节</li>
+<li><code>FLOAT</code>: 占用 4 字节</li>
+<li><code>DOUBLE</code>: 占用 8 字节</li>
+<li><code>DECIMAL</code>: 依赖于 M(精度) 和 D(标度)</li>
+</ol>
+<blockquote>
+<p>可以在数值类型后添加 <code>UNSIGNED</code> 表明为无符号数值<br>
+使用 <code>DOUBLE</code> 类型时，要指定整体长度和小数长度。eg: <code>DOUBLE(4, 1 )</code></p>
+</blockquote>
+</li>
+<li>字符串类型
+<ol>
+<li><code>CHAR</code>: 定长字符串</li>
+<li><code>VARCHAR</code>: 变长字符串</li>
+<li><code>TINYBLOB</code>: 长度不超过 255 的二进制数据</li>
+<li><code>TINYTEXT</code>: 短文本字符串</li>
+<li><code>BLOB</code>: 二进制形式的长文本数据</li>
+<li><code>TEXT</code>: 长文本数据</li>
+<li><code>MEDIUMBLOB</code>: 二进制形式的中等长度文本数据</li>
+<li><code>MEDIUMTEXT</code>: 中等长度文本数据</li>
+<li><code>LONGBLOB</code>: 二进制形式的极大文本数据</li>
+<li><code>LONGTEXT</code>: 极大文本数据</li>
+</ol>
+<blockquote>
+<p><code>CHAR</code> 会根据初始化长度分配空间 (性能好)<br>
+<code>VARCHAR</code> 会根据存储内容分配合适的空间 (性能较差)</p>
+</blockquote>
+</li>
+<li>日期类型
+<ol>
+<li><code>DATE</code>: 日期值，格式：YYYY-MM-DD</li>
+<li><code>TIME</code>: 时间值或持续时间，格式：HH:MM:SS</li>
+<li><code>YEAR</code>: 年份值，格式：YYYY</li>
+<li><code>DATETIME</code>: 混合日期和时间值，格式：YYYY-MM-DD HH:MM:SS</li>
+<li><code>TIMESTAMP</code>: 混合日期和时间值、时间戳，格式：YYYY-MM-DD HH:MM:SS (年份范围到 2038)</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li><strong>DDL - 表操作 - 修改</strong>
+<ul>
+<li>
+<p>添加字段<br>
+<code>ALTER TABLE 表名 ADD 字段名 类型(长度) [COMMENT 注释] [约束];</code></p>
+</li>
+<li>
+<p>修改字段名和字段类型<br>
+<code>ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型(长度) [COMMENT 注释] [约束];</code></p>
+</li>
+<li>
+<p>删除字段<br>
+<code>ALTER TABLE 表名 DROP 字段名;</code></p>
+</li>
+<li>
+<p>修改表名<br>
+<code>ALTER TABLE 旧表名 RENAME TO 新表名;</code></p>
+</li>
+<li>
+<p>删除表<br>
+<code>DROP TABLE [IF EXISTS] 表名;</code></p>
+</li>
+<li>
+<p>删除指定表，并重新创建该表<br>
+<code>TRUNCATE TABLE 表名;</code></p>
+<blockquote>
+<p>删除表时，表中的全部数据也会被删除</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="dml"><strong>DML</strong></h3>
+<ul>
+<li>
+<p><strong>DML - 字段操作 - 添加数据</strong></p>
+<ol>
+<li>
+<p>给指定字段添加数据<br>
+<code>INSERT INTO 表名(字段名1，字段名2，...) VALUES(值1，值2，...);</code></p>
+</li>
+<li>
+<p>给全部字段添加数据<br>
+<code>INSERT INTO 表名 VALUES(值1，值2，...);</code></p>
+</li>
+<li>
+<p>批量添加数据<br>
+<code>INSERT INTO 表名(字段名1，字段名2，...) VALUES(值1，值2，...),(值1，值2，...);</code><br>
+<code>INSERT INTO 表名 VALUES(值1，值2，...),(值1，值2，...);</code></p>
+<blockquote>
+<ul>
+<li>插入数据时，指定的字段顺序需要和值的顺序一一对应</li>
+<li>字符串和日期型数据需要包含再引号中</li>
+<li>插入数据大小应该在字段的规定范围内</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>DML - 数据操作 - 插入</strong></p>
+<ol>
+<li>
+<p>给指定字段添加数据<br>
+<code>INSERT INTO 表名(字段名1,字段名2,...) VALUES(值1,值2,...);</code></p>
+</li>
+<li>
+<p>给全部字段添加数据<br>
+<code>INSERT INTO 表名 VALUES(值1,值2,...);</code></p>
+</li>
+<li>
+<p>批量添加数据<br>
+<code>INSERT INTO 表名(字段名1,字段名2,...),(字段名1,字段名2,...) VALUES(值1,值2,...),(值1,值2,...);</code><br>
+<code>INSERT INTO 表名 VALUES (值1,值2,...),(值1,值2,...);</code></p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>DML - 数据操作 - 修改</strong></p>
+<ol>
+<li>
+<p>修改数据<br>
+<code>UPDATE 表名 SET 字段名1 = 值1,字段名2 = 值2,... [WHERE 条件];</code></p>
+<blockquote>
+<p>修改语句的条件非必需，若没有条件，则修改整张表的数据</p>
+</blockquote>
+</li>
+<li>
+<p>删除数据<br>
+<code>DELETE FROM 表名 [WHERE 条件];</code></p>
+<blockquote>
+<ul>
+<li><code>DELETE</code> 语句的条件非必需，若没有条件，则会删除整张表的所有数据</li>
+<li><code>DELETE</code> 语句不能删除某一个字段的值 (可以使用<code>UPDATE</code>)</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="dql"><strong>DQL</strong></h3>
+<ul>
+<li>
+<p>语法</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">SELECT</span>
+      字段列表
+<span class="hljs-keyword">FROM</span>
+      表名列表
+<span class="hljs-keyword">WHERE</span>
+      条件列表
+<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>
+      分组字段列表
+<span class="hljs-keyword">HAVING</span>
+      分组后条件列表
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span>
+      排序字段列表
+<span class="hljs-keyword">LIMIT</span>
+      分页参数
+</div></code></pre>
+</li>
+<li>
+<p><strong>DQL - 基本查询</strong></p>
+</li>
+</ul>
+<ol>
+<li>查询多个字段<br>
+<code>SELECT 字段1, 字段2, 字段3... FROM 表名;</code><br>
+<code>SELECT * FROM 表名;</code></li>
+<li>设置别名 (增强字段的可读性)<br>
+<code>SELECT 字段1 [AS 别名1], 字段2 [AS 别名2]...FROM 表名;</code></li>
+<li>去除重复记录<br>
+<code>SELECT DISTINCT 字段列表 FROM 表名;</code></li>
+</ol>
+<ul>
+<li><strong>DQL - 条件查询</strong></li>
+</ul>
+<ol>
+<li>语法<br>
+<code>SELECT 字段列表 FROM 表名 WHERE 条件列表;</code></li>
+<li>条件：
+<ul>
+<li>比较运算符：
+<ul>
+<li>大于 / 大于等于：<code>&gt; &gt;=</code></li>
+<li>小于 / 小于等于：<code>&lt; &lt;=</code></li>
+<li>等于：<code>=</code></li>
+<li>不等于：<code>&lt;&gt;</code> 或 <code>!=</code></li>
+<li>某个范围内 []：<code>BETWEEN...AND...</code></li>
+<li>在 IN 后的条件列表中的值，多选一：<code>IN(...)</code></li>
+<li>是否为 NULL：<code>IS NULL</code></li>
+<li>模糊匹配：<code>LIKE 占位符</code> (<code>_</code> 匹配单个字符，<code>%</code> 匹配任意个字符)</li>
+</ul>
+</li>
+<li>逻辑运算符：
+<ul>
+<li>并且：<code>AND</code> 或 <code>&amp;&amp;</code></li>
+<li>或者：<code>OR</code> 或 <code>||</code></li>
+<li>非：<code>NOT</code> 或 <code>!</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+</body>
+</html>
