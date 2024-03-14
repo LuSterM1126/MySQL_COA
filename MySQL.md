@@ -59,12 +59,12 @@ marp: true
 
 #### **DDL - 表操作 - 创建**  
 
-    ````sql
-    create table 表名 (
-        字段1 字段1 类型 [COMMENT 字段1 注释],
-        字段2 字段2 类型 [COMMENT 字段2 注释],
-        )[COMMENT 表注释];
-    ````
+````SQL
+create table 表名 (
+    字段1 字段1 类型 [COMMENT 字段1 注释],
+    字段2 字段2 类型 [COMMENT 字段2 注释],
+    )[COMMENT 表注释];
+````
 
   > 最后一个字段后面没有逗号
 
@@ -166,22 +166,22 @@ marp: true
 
 + 语法
 
-      ````sql
-      SELECT
-            字段列表
-      FROM
-            表名列表
-      WHERE
-            条件列表
-      GROUP BY
-            分组字段列表
-      HAVING
-            分组后条件列表
-      ORDER BY
-            排序字段列表
-      LIMIT
-            分页参数
-      ````
+````sql
+SELECT
+      字段列表
+FROM
+      表名列表
+WHERE
+      条件列表
+GROUP BY
+      分组字段列表
+HAVING
+      分组后条件列表
+ORDER BY
+      排序字段列表
+LIMIT
+      分页参数
+````
 
 #### **DQL - 基本查询**
 
