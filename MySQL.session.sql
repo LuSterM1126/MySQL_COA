@@ -16,3 +16,5 @@ SELECT * FROM emp;
 -- SELECT gender, COUNT(age) FROM emp GROUP BY gender;
 
 -- SELECT address, COUNT(*) FROM emp WHERE age < 20 GROUP BY address;
+SELECT name, age, day FROM emp ORDER BY age ASC, day DESC;
+SELECT * FROM emp LIMIT 0, 5;
