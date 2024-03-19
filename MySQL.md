@@ -275,3 +275,46 @@ ORDER BY
 LIMIT
       分页参数 -- 7
 ````
+
+### **DCL**
+
+#### **DCL - 管理用户**
+
+1. 查询用户  
+
+    ````sql
+    USE mysql;
+    SELECT * FROM user;
+    ````
+
+2. 创建用户  
+`CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码';`
+
+    > 主机名为 **localhost** 时，只能在当前主机访问数据库  
+    > 主机名为 **%** 时，可以在任意主机访问数据库
+
+3. 修改用户密码  
+`ALTER USER '用户名'@'主机名' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY '新密码';`
+4. 删除用户  
+`DROP USER '用户名'@'主机名';`
+
+#### **DCL - 权限控制**
+
+1. MySQL 中定义了很多种权限：
+    + **ALL**：所有权限
+    + **SELECT**：查询数据
+    + **INSERT**：插入数据
+    + **UPDATE**：修改数据
+    + **DELETE**：删除数据
+    + **ALTER**：修改表
+    + **DROP**：删除数据库、表、视图
+    + **CREATE**：创建数据库、表
+2. 语法
+   1. 查询权限  
+    `SHOW GRANTS FOR '用户名'@'主机名';`
+   2. 授予权限  
+    `GRANT 权限列表 ON 数据库名.表名 TO '用户名'@'主机名';`
+   3. 撤销权限  
+    `REVOKE 权限列表 ON 数据库名.表名 FROM '用户名'@'主机名';`
+    > 多个权限之间，使用逗号分隔  
+    > 授权时，数据库名和表名都可以使用 * 进行通配，代表所有
