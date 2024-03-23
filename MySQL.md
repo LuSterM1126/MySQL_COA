@@ -318,3 +318,43 @@ LIMIT
     `REVOKE 权限列表 ON 数据库名.表名 FROM '用户名'@'主机名';`
     > 多个权限之间，使用逗号分隔  
     > 授权时，数据库名和表名都可以使用 * 进行通配，代表所有
+
+## **函数**
+
++ **函数** 是指一段可以直接被另一段程序调用得到程序或代码
+
+### **字符串函数**
+
+1. `CONCAT(s1, s2, ..., sn)` 字符串拼接，将所有字符串拼接成一个字符串
+2. `LOWER(str)` 将字符串 str 全部转为小写
+3. `UPPER(str)` 将字符串 str 全部转为大写
+4. `LPAD(str, n, pad)` 左填充，用字符串 pad 对 str 的左侧进行填充，使其长度为 n
+5. `RPAD(str, n, pad)` 右填充，用字符串 pad 对 str 的右侧进行填充，使其长度为 n
+6. `TRIM(str)` 去除字符串头部和尾部的空格
+7. `SUBSTRING(str, start, len)` 返回从字符串 start 起的 len 长度的字符串
+
+### **数值函数**
+
+1. `CEIL(x)` 向上取整
+2. `FLOOR(x)` 向下取整
+3. `MOD(x)` 返回 x % y
+4. `RAND()` 返回 0~1 内的随机数
+5. `ROUND(x, y)` 求参数 x 的四舍五入值，保留 y 位小数
+
+### **日期函数**
+
+1. `CURDATE()` 返回当前日期
+2. `CURTIME()` 返回当前时间
+3. `NOW()` 返回当前日期和时间
+4. `YEAR(date)` 获取指定 date 的年份
+5. `MONTH(date)` 获取指定 date 的月份
+6. `DAY(date)` 获取指定 date 的日期
+7. `DATE_ADD(date, INTERVAL expr type)` 返回一个日期/时间值加上一个时间间隔后的时间值
+8. `DATEDIFF(date1, date2)` 返回起始时间 date1 和结束时间 date2 之间的天数
+
+### **流程函数**
+
+1. `IF(value, t, f)` 若 value 为 true，则返回 t，否则返回 f
+2. `IFNULL(value1, value2)` 若 value1 不为空，返回 value1，否则返回 value2
+3. `CASE WHEN [val1] THEN [res1]... ELSE [default] END` 若 val1 为 true，返回 res1，否则返回默认值 default
+4. `CASE [EXPR] WHEN [val1] THEN [res1]... ELSE [default] END` 若 expr 的值为 val1，返回 res1，否则返回默认值 default
