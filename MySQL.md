@@ -358,3 +358,35 @@ LIMIT
 2. `IFNULL(value1, value2)` 若 value1 不为空，返回 value1，否则返回 value2
 3. `CASE WHEN [val1] THEN [res1]... ELSE [default] END` 若 val1 为 true，返回 res1，否则返回默认值 default
 4. `CASE [EXPR] WHEN [val1] THEN [res1]... ELSE [default] END` 若 expr 的值为 val1，返回 res1，否则返回默认值 default
+
+## **约束**
+
+1. 概念：约束是作用于表中字段上的规则，用于限制在表中的数据
+2. 目的：保证数据库中数据的正确性、有效性和完整性
+3. 分类：
+   1. 非空约束 `NOT NULL`：限制该字段的数据不能为 `null`
+   2. 唯一约束 `UNIQUE`：保证该字段的所有数据都是唯一的、不重复的
+   3. 主键约束 `PRIMARY KEY`：主键是一行数据的唯一标识，要求非空且唯一
+   4. 默认约束 `DEFAULT`：保存数据时，若为指定该字段的值，则采用默认值
+   5. 检查约束 `CHECK`：保证字段值满足某一个条件
+   6. 外键约束 `FOREIGN KEY`：用来让两张表的数据之间建立联系，保证数据的一致性和完整性
+    > 约束是作用于表中字段上的，可以在创建表 / 修改表的时候添加约束
+4. 外键约束
+   + 概念：用来让两张表的数据之间建立连接，保证数据的一致性和完整性
+   + 具有外键的表称为子表，外键关联的表称为父表
+   + 语法：
+    1. 添加外键
+
+        ````sql
+        CREATE TABLE 表名 (
+          字段名 数据类型
+          ...
+          [CONSTRAINT] [外键名称] FOREIGN KEY (外键字段名) REFERENCE 主表 (主表列 名)
+        );
+
+        ALTER TABLE ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名) REFERENCE  主 表 (主表列名);
+        ````
+
+    2. 删除外键
+      `ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;`
+  
