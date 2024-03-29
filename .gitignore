@@ -6,3 +6,4 @@
 *.png
 *.sql
 /.vscode
+/fuzzy-cnoi-statement
