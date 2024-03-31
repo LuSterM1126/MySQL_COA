@@ -389,4 +389,13 @@ LIMIT
 
     2. 删除外键
       `ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;`
-  
+    3. 删除 / 更新
+        + `NO ACTION`：当在父表中删除 / 更新对应记录时，首先检查该记录是否有对应外键，若有则不允许删除 / 更新
+        + `RESTRICT`：当在父表中删除 / 更新对应记录时，首先检查该记录是否有对应外键，若有则不允许删除 / 更新
+        + `CASCADE`：当在父表中删除 / 更新对应记录时，首先检查该记录是否有对应外键，若有，则也删除 / 更新外键在子表中的记录
+        + `SET NULL`：当在父表中删除对应记录时，首先检查该记录是否有对应外键，若有则设置子表中该外键指为 `null` (要求外键允许取 `null` 值)
+        + `SET DEFAULT`：父表更新时，子表将外键列设置成一个默认值
+
+        ```sql
+        ALTER TABLE ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名) REFERENCE 主表 (主表字段名) ON UPDATE CASCADE ON DELETE CASCADE;
+        ```
