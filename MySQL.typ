@@ -1,7 +1,6 @@
-// #import "@preview/fuzzy-cnoi-statement:0.1.0": *;
-// #import "fuzzy-cnoi-statement/template.typ": *;
+// #import "@preview/fuzzy-cnoi-statement:0.1.0": 
+#import "fuzzy-cnoi-statement/template.typ": *;
 #set text(font: ("Consolas", "Microsoft YaHei"))
-#set par(first-line-indent: 4em)
 = 数据库
 
 == 数据库概述
@@ -37,18 +36,18 @@
 
 ==== DDL - 数据库操作
 
-- 查询所有数据库\ `show databases;`
-- 查询当前数据库\ `select database();`
+- 查询所有数据库\ ```SQL show databases;```
+- 查询当前数据库\ ```SQL select database();```
 
-- 创建\ `create database [IF NOT EXISTS] 数据库名 [DEFAULT CHARSET 字符集] [COLLATE 排序规则];`
-- 删除\ `drop database [IF EXISTS] 数据库名;`
-- 使用\ `use 数据库名;`
+- 创建\ ```SQL create database [IF NOT EXISTS] 数据库名 [DEFAULT CHARSET 字符集] [COLLATE 排序规则];```
+- 删除\ ```SQL drop database [IF EXISTS] 数据库名;```
+- 使用\ ```SQL use 数据库名;```
 
 ==== DDL - 表操作 - 查询
 
-- 查询当前数据库所有表\ `show tables;`
-- 查询表结构\ `desc 表名;`
-- 查询指定表的建表语句\ `show create table 表名;`
+- 查询当前数据库所有表\ ```SQL show tables;```
+- 查询表结构\ ```SQL desc 表名;```
+- 查询指定表的建表语句\ ```SQL show create table 表名;```
 
 ==== DDL - 表操作 - 创建  
 
@@ -98,52 +97,47 @@ create table 表名 (
 \
 ==== DDL - 表操作 - 修改
 
-- 添加字段\ `ALTER TABLE 表名 ADD 字段名 类型(长度) [COMMENT 注释] [约束];`
+- 添加字段\ ```SQL ALTER TABLE 表名 ADD 字段名 类型(长度) [COMMENT 注释] [约束];```
 
 - 修改字段名和字段类型\ `ALTER TABLE 表名 CHANGE 旧字段名 新字段名 类型(长度) [COMMENT 注释] [约束];`
 
-- 删除字段\ `ALTER TABLE 表名 DROP 字段名;`
+- 删除字段\ ```SQL ALTER TABLE 表名 DROP 字段名;```
 
-- 修改表名\ `ALTER TABLE 旧表名 RENAME TO 新表名;`
+- 修改表名\ ```SQL ALTER TABLE 旧表名 RENAME TO 新表名;```
 
-- 删除表\ `DROP TABLE [IF EXISTS] 表名;`
+- 删除表\ ```SQL DROP TABLE [IF EXISTS] 表名;```
 
-- 删除指定表，并重新创建该表\ `TRUNCATE TABLE 表名;`
+- 删除指定表，并重新创建该表\ ```SQL TRUNCATE TABLE 表名;```
 	- 删除表时，表中的全部数据也会被删除
-\ 
+
 === DML
 
 ==== DML - 字段操作 - 添加数据
 
-1. 给指定字段添加数据\ `INSERT INTO 表名(字段名1，字段名2，...) VALUES(值1，值2，...);`
+1. 给指定字段添加数据\ ```SQL INSERT INTO 表名(字段名1，字段名2，...) VALUES(值1，值2，...);```
 
-1. 给全部字段添加数据\ `INSERT INTO 表名 VALUES(值1，值2，...);`
+2. 给全部字段添加数据\ ```SQL INSERT INTO 表名 VALUES(值1，值2，...);```
 
-1. 批量添加数据\ `INSERT INTO 表名(字段名1，字段名2，...) VALUES(值1，值2，...),(值1，值2，...);`\ `INSERT INTO 表名 VALUES(值1，值2，...),(值1，值2，...);`\ 
-- 插入数据时，指定的字段顺序需要和值的顺序一一对应
-- 字符串和日期型数据需要包含再引号中
-- 插入数据大小应该在字段的规定范围内
+3. 批量添加数据\ ```SQL INSERT INTO 表名(字段名1，字段名2，...) VALUES(值1，值2，...),(值1，值2，...);```\ ```SQL INSERT INTO 表名 VALUES(值1，值2，...),(值1，值2，...);```
+
+  - 插入数据时，指定的字段顺序需要和值的顺序一一对应
+  - 字符串和日期型数据需要包含再引号中
+  - 插入数据大小应该在字段的规定范围内
 
 ==== DML - 数据操作 - 插入
 
-1. 给指定字段添加数据  
-`INSERT INTO 表名(字段名1,字段名2,...) VALUES(值1,值2,...);`
+1. 给指定字段添加数据\ ```SQL INSERT INTO 表名(字段名1,字段名2,...) VALUES(值1,值2,...);```
 
-1. 给全部字段添加数据  
-`INSERT INTO 表名 VALUES(值1,值2,...);`
+2. 给全部字段添加数据\ ```SQL INSERT INTO 表名 VALUES(值1,值2,...);```
 
-1. 批量添加数据  
-`INSERT INTO 表名(字段名1,字段名2,...),(字段名1,字段名2,...) VALUES(值1,值2,...),(值1,值2,...);`\
-`INSERT INTO 表名 VALUES (值1,值2,...),(值1,值2,...);`
+3. 批量添加数据\ ```SQL INSERT INTO 表名(字段名1,字段名2,...),(字段名1,字段名2,...) VALUES(值1,值2,...),(值1,值2,...);```\ ```SQL INSERT INTO 表名 VALUES (值1,值2,...),(值1,值2,...);```
 
 ==== DML - 数据操作 - 修改
 
-1. 修改数据  
-`UPDATE 表名 SET 字段名1 = 值1,字段名2 = 值2,... [WHERE 条件];`\
-修改语句的条件非必需，若没有条件，则修改整张表的数据
+1. 修改数据\ ```SQL UPDATE 表名 SET 字段名1 = 值1,字段名2 = 值2,... [WHERE 条件];```\
+  - 修改语句的条件非必需，若没有条件，则修改整张表的数据
 
-2. 删除数据  
-`DELETE FROM 表名 [WHERE 条件];`
+2. 删除数据\ ```SQL DELETE FROM 表名 [WHERE 条件];```
 - `DELETE` 语句的条件非必需，若没有条件，则会删除整张表的所有数据
 - `DELETE` 语句不能删除某一个字段的值 (可以使用`UPDATE`)
 
@@ -170,13 +164,13 @@ LIMIT
 
 ==== DQL - 基本查询
 
-1. 查询多个字段\ `SELECT 字段1, 字段2, 字段3... FROM 表名;`\ `SELECT * FROM 表名;`
-2. 设置别名 (增强字段的可读性)\ `SELECT 字段1 [AS 别名1], 字段2 [AS 别名2]...FROM 表名;`
-3. 去除重复记录\ `SELECT DISTINCT 字段列表 FROM 表名;`
+1. 查询多个字段\ ```SQL SELECT 字段1, 字段2, 字段3... FROM 表名;```\ ```SQL SELECT * FROM 表名;```
+2. 设置别名 (增强字段的可读性)\ ```SQL SELECT 字段1 [AS 别名1], 字段2 [AS 别名2]...FROM 表名;```
+3. 去除重复记录\ ```SQL SELECT DISTINCT 字段列表 FROM 表名;```
 
 ==== DQL - 条件查询
 
-1. 语法\ `SELECT 字段列表 FROM 表名 WHERE 条件列表;`
+1. 语法\ ```SQL SELECT 字段列表 FROM 表名 WHERE 条件列表;```
 
 2. 条件：
     - 比较运算符：
@@ -189,7 +183,6 @@ LIMIT
       - 在 IN 后的条件列表中的值，多选一：`IN(...)`
       - 是否为 NULL：`IS NULL`
       - 模糊匹配：`LIKE 占位符` #text()[`_` 匹配单个字符，`%` 匹配任意个字符]
-
     - 逻辑运算符：
       - 并且：`AND` 或 `&&`
       - 或者：`OR` 或 `||`
@@ -209,7 +202,7 @@ LIMIT
 
 ==== DQL - 分组查询
 
-1. 语法\ `SELECT 字段列表 FROM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];`
+1. 语法\ ```SQL SELECT 字段列表 FROM 表名 [WHERE 条件] GROUP BY 分组字段名 [HAVING 分组后过滤条件];```
 
 2. `WHERE` 和 `HAVING` 的区别
     - 执行时机不同：`WHERE` 是分组之前进行过滤，不满足 `WHERE` 条件不参与分组； `HAVING` 是分组之后对结果进行过滤
@@ -219,11 +212,11 @@ LIMIT
 
  - 分组之后，查询的字段一般未聚合函数和分组字段，查询其他字段无任何意义
  - 执行顺序：`WHERE` > 聚合函数 > `HAVING`
- - 支持多字段分组，语法为 `GROUP BY 字段1, 字段2`
+ - 支持多字段分组，语法为\ ```SQL GROUP BY 字段1, 字段2```
 
 ==== DQL - 排序查询
 
-1. 语法\ `SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式1, 字段2 排序方式2;`
+1. 语法\ ```SQL SELECT 字段列表 FROM 表名 ORDER BY 字段1 排序方式1, 字段2 排序方式2;```
 2. 排序方式
     1. `ASC` 升序 (默认值)
     2. `DESC` 降序
@@ -231,16 +224,16 @@ LIMIT
 
 ==== DQL - 分页查询
 
-1. 语法\ `SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询记录数;`
+1. 语法\ ```SQL SELECT 字段列表 FROM 表名 LIMIT 起始索引, 查询记录数;```
 2. 注意
     - 起始索引从 0 开始，起始索引 = (查询页码 - 1) \* 每页显示记录数
 
     - 分页查询是数据库的方言，不同数据库实现不同
     - 若查询的是第一页数据，起始索引可忽略
-
+\ \ \
 ==== DQL - 执行顺序
 
-````sql
+````SQL
 SELECT
       字段列表 -- 5
 FROM
@@ -263,19 +256,19 @@ LIMIT
 
 1. 查询用户  
 
-    ````sql
+    ````SQL
     USE mysql;
     SELECT * FROM user;
     ````
 
-2. 创建用户\ `CREATE USER '用户名'\@'主机名' IDENTIFIED BY '密码';`
+2. 创建用户\ ```SQL CREATE USER '用户名'@'主机名' IDENTIFIED BY '密码';```
 
     - 主机名为 *localhost* 时，只能在当前主机访问数据库  
     - 主机名为 *%* 时，可以在任意主机访问数据库
 
-3. 修改用户密码\ `ALTER USER '用户名'\@'主机名' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY '新密码';`
+3. 修改用户密码\ ```SQL ALTER USER '用户名'@'主机名' IDENTIFIED WITH MYSQL_NATIVE_PASSWORD BY '新密码';```
 
-4. 删除用户\ `DROP USER '用户名'\@'主机名';`
+4. 删除用户\ ```SQL DROP USER '用户名'@'主机名';```
 
 ==== DCL - 权限控制
 
@@ -289,10 +282,10 @@ LIMIT
     - *DROP*：删除数据库、表、视图
     - *CREATE*：创建数据库、表
 2. 语法
-   1. 查询权限\ `SHOW GRANTS FOR '用户名'\@'主机名';`
+   1. 查询权限\ ```SQL SHOW GRANTS FOR '用户名'@'主机名';```
 
-   2. 授予权限\ `GRANT 权限列表 ON 数据库名.表名 TO '用户名'\@'主机名';`
-   3. 撤销权限\ `REVOKE 权限列表 ON 数据库名.表名 FROM '用户名'\@'主机名';`
+   2. 授予权限\ ```SQL GRANT 权限列表 ON 数据库名.表名 TO '用户名'@'主机名';```
+   3. 撤销权限\ ```SQL REVOKE 权限列表 ON 数据库名.表名 FROM '用户名'@'主机名';```
     - 多个权限之间，使用逗号分隔  
     - 授权时，数据库名和表名都可以使用 \* 进行通配，代表所有
 
@@ -302,54 +295,54 @@ LIMIT
 
 === 字符串函数
 
-1. `CONCAT(s1, s2, ..., sn)` 字符串拼接，将所有字符串拼接成一个字符串
+1. ```SQL CONCAT(s1, s2, ..., sn)``` 字符串拼接，将所有字符串拼接成一个字符串
 
-2. `LOWER(str)` 将字符串 str 全部转为小写
-3. `UPPER(str)` 将字符串 str 全部转为大写
-4. `LPAD(str, n, pad)` 左填充，用字符串 pad 对 str 的左侧进行填充，使其长度为 n
-5. `RPAD(str, n, pad)` 右填充，用字符串 pad 对 str 的右侧进行填充，使其长度为 n
-6. `TRIM(str)` 去除字符串头部和尾部的空格
-7. `SUBSTRING(str, start, len)` 返回从字符串 start 起的 len 长度的字符串
+2. ```SQL LOWER(str)``` 将字符串 str 全部转为小写
+3. ```SQL UPPER(str)``` 将字符串 str 全部转为大写
+4. ```SQL LPAD(str, n, pad)``` 左填充，用字符串 pad 对 str 的左侧进行填充，使其长度为 n
+5. ```SQL RPAD(str, n, pad)``` 右填充，用字符串 pad 对 str 的右侧进行填充，使其长度为 n
+6. ```SQL TRIM(str)``` 去除字符串头部和尾部的空格
+7. ```SQL SUBSTRING(str, start, len)``` 返回从字符串 start 起的 len 长度的字符串
 
 === 数值函数
 
-1. `CEIL(x)` 向上取整
-2. `FLOOR(x)` 向下取整
-3. `MOD(x)` 返回 x % y
-4. `RAND()` 返回 0~1 内的随机数
-5. `ROUND(x, y)` 求参数 x 的四舍五入值，保留 y 位小数
+1. ```SQL CEIL(x)``` 向上取整
+2. ```SQL FLOOR(x)``` 向下取整
+3. ```SQL MOD(x)``` 返回 x % y
+4. ```SQL RAND()``` 返回 0~1 内的随机数
+5. ```SQL ROUND(x, y)``` 求参数 x 的四舍五入值，保留 y 位小数
 
 === 日期函数
 
-1. `CURDATE()` 返回当前日期
+1. ```SQL CURDATE()``` 返回当前日期
 
-2. `CURTIME()` 返回当前时间
-3. `NOW()` 返回当前日期和时间
-4. `YEAR(date)` 获取指定 date 的年份
-5. `MONTH(date)` 获取指定 date 的月份
-6. `DAY(date)` 获取指定 date 的日期
-7. `DATE_ADD(date, INTERVAL expr type)` 返回一个日期/时间值加上一个时间间隔后的时间值
-8. `DATEDIFF(date1, date2)` 返回起始时间 date1 和结束时间 date2 之间的天数
+2. ```SQL CURTIME()``` 返回当前时间
+3. ```SQL NOW()``` 返回当前日期和时间
+4. ```SQL YEAR(date)``` 获取指定 date 的年份
+5. ```SQL MONTH(date)``` 获取指定 date 的月份
+6. ```SQL DAY(date)``` 获取指定 date 的日期
+7. ```SQL DATE_ADD(date, INTERVAL expr type)``` 返回一个日期/时间值加上一个时间间隔后的时间值
+8. ```SQL DATEDIFF(date1, date2)``` 返回起始时间 date1 和结束时间 date2 之间的天数
 
 === 流程函数
 
-1. `IF(value, t, f)` 若 value 为 true，则返回 t，否则返回 f
+1. ```SQL IF(value, t, f)``` 若 value 为 true，则返回 t，否则返回 f
 
-2. `IFNULL(value1, value2)` 若 value1 不为空，返回 value1，否则返回 value2
-3. `CASE WHEN [val1] THEN [res1]... ELSE [default] END` 若 val1 为 true，返回 res1，否则返回默认值 default
-4. `CASE [EXPR] WHEN [val1] THEN [res1]... ELSE [default] END` 若 expr 的值为 val1，返回 res1，否则返回默认值 default
+2. ```SQL IFNULL(value1, value2)``` 若 value1 不为空，返回 value1，否则返回 value2
+3. ```SQL CASE WHEN [val1] THEN [res1]... ELSE [default] END``` 若 val1 为 true，返回 res1，否则返回默认值 default
+4. ```SQL CASE [EXPR] WHEN [val1] THEN [res1]... ELSE [default] END``` 若 expr 的值为 val1，返回 res1，否则返回默认值 default
 
 == 约束
 
 1. 概念：约束是作用于表中字段上的规则，用于限制在表中的数据
 2. 目的：保证数据库中数据的正确性、有效性和完整性
 3. 分类：
-   1. 非空约束 `NOT NULL`：限制该字段的数据不能为 `null`
-   2. 唯一约束 `UNIQUE`：保证该字段的所有数据都是唯一的、不重复的
-   3. 主键约束 `PRIMARY KEY`：主键是一行数据的唯一标识，要求非空且唯一
-   4. 默认约束 `DEFAULT`：保存数据时，若为指定该字段的值，则采用默认值
-   5. 检查约束 `CHECK`：保证字段值满足某一个条件
-   6. 外键约束 `FOREIGN KEY`：用来让两张表的数据之间建立联系，保证数据的一致性和完整性
+   1. 非空约束 ```SQL NOT NULL```：限制该字段的数据不能为 ```SQL null```
+   2. 唯一约束 ```SQL UNIQUE```：保证该字段的所有数据都是唯一的、不重复的
+   3. 主键约束 ```SQL PRIMARY KEY```：主键是一行数据的唯一标识，要求非空且唯一
+   4. 默认约束 ```SQL DEFAULT```：保存数据时，若为指定该字段的值，则采用默认值
+   5. 检查约束 ```SQL CHECK```：保证字段值满足某一个条件
+   6. 外键约束 ```SQL FOREIGN KEY```：用来让两张表的数据之间建立联系，保证数据的一致性和完整性
     > 约束是作用于表中字段上的，可以在创建表 / 修改表的时候添加约束
 4. 外键约束
    - 概念：用来让两张表的数据之间建立连接，保证数据的一致性和完整性
@@ -367,4 +360,4 @@ LIMIT
         ALTER TABLE ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段名) REFERENCE  主 表 (主表列名);
         ````
 
-    2. 删除外键\ `ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;`
+    2. 删除外键\ ```SQL ALTER TABLE 表名 DROP FOREIGN KEY 外键名称;```
