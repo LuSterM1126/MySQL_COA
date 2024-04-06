@@ -131,3 +131,47 @@ VALUES (1, '金庸', 66, '总裁', 20000, '2000-01-01', null, 5),
 ALTER TABLE emp
 ADD CONSTRAINT fk_emp_dept_id Foreign Key (dept_id) REFERENCES dept(id);
 ALTER TABLE emp DROP FOREIGN KEY fk_emp_dept_id;
+
+
+ALTER TABLE emp
+ADD CONSTRAINT fk_emp_dept_id FOREIGN KEY (dept_id) REFERENCES dept(id) ON UPDATE
+SET NULL ON DELETE
+SET NULL;
+create table student(
+    id int auto_increment primary key comment '主键ID',
+    name varchar(10) comment '姓名',
+    no varchar(10) comment '学号'
+) comment '学生表';
+insert into student
+values (null, '黛绮丝', '2000100101'),
+    (null, '谢逊', '2000100102'),
+    (null, '殷天正', '2000100103'),
+    (null, '韦一笑', '2000100104');
+create table course(
+    id int auto_increment primary key comment '主键ID',
+    name varchar(10) comment '课程名称'
+) comment '课程表';
+insert into course
+values (null, 'Java'),
+    (null, 'PHP'),
+    (null, 'MySQL'),
+    (null, 'Hadoop');
+create table student_course(
+    id int auto_increment comment '主键' primary key,
+    studentid int not null comment '学生ID',
+    courseid int not null comment '课程ID',
+    constraint fk_courseid foreign key (courseid) references course (id),
+    constraint fk_studentid foreign key (studentid) references student (id)
+) comment '学生课程中间表';
+insert into student_course
+values (null, 1, 1),
+    (null, 1, 2),
+    (null, 1, 3),
+    (null, 2, 2),
+    (null, 2, 3),
+    (null, 3, 4);
+
+SELECT * FROM course;
+SELECT * FROM student;
+SELECT * FROM student_course;
+SELECT * FROM user;
