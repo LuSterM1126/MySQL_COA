@@ -242,3 +242,7 @@ SELECT e1.name AS employee, e2.name AS employer FROM emp AS e1 JOIN emp AS e2 ON
 
 SELECT e1.name AS employee, e2.name AS employer FROM emp AS e1 LEFT OUTER JOIN emp AS e2 ON e1.managerid = e2.id;
 
+
+SELECT * FROM emp WHERE emp.salary < 5000
+UNION ALL
+SELECT * FROM emp WHERE emp.age > 50;
