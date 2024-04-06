@@ -411,3 +411,9 @@ LIMIT
 - 左外连接\ ```sql SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件...;```
 
 - 右外连接\ ```sql SELECT 字段列表 FROM 表1 RIGHT [OUTER] JOIN 表2 ON 条件...;```
+
+==== 自连接
+
+自连接查询\ ```sql SELECT 字段列表 FROM 表A AS 别名A JOIN 表A AS 别名B ON 条件...; ```
+
+- 自连接查询，可以是内连接查询，也可以是外连接查询 #text([(一定要起别名)])

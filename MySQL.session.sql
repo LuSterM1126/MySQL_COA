@@ -236,3 +236,9 @@ SELECT emp.*, dept.id FROM emp LEFT OUTER JOIN dept ON emp.dept_id = dept.id;
 SELECT * FROM emp RIGHT OUTER JOIN dept ON emp.dept_id = dept.id;
 
 SELECT dept.*, emp.* FROM emp RIGHT OUTER JOIN dept ON emp.dept_id = dept.id;
+
+
+SELECT e1.name AS employee, e2.name AS employer FROM emp AS e1 JOIN emp AS e2 ON e1.managerid = e2.id;
+
+SELECT e1.name AS employee, e2.name AS employer FROM emp AS e1 LEFT OUTER JOIN emp AS e2 ON e1.managerid = e2.id;
+
