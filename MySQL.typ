@@ -403,3 +403,11 @@ LIMIT
 - 隐式内连接\ ```sql SELECT 字段列表 FROM 表1, 表2 WHERE 条件...;```
 
 - 显式内连接\ ```sql SELECT 字段列表 FROM 表1 [INNER] JOIN 表2 ON 连接条件...;```
+
+==== 外连接
+
+外连接查询
+
+- 左外连接\ ```sql SELECT 字段列表 FROM 表1 LEFT [OUTER] JOIN 表2 ON 条件...;```
+
+- 右外连接\ ```sql SELECT 字段列表 FROM 表1 RIGHT [OUTER] JOIN 表2 ON 条件...;```

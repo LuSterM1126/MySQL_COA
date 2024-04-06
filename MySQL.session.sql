@@ -227,3 +227,12 @@ SELECT * FROM emp, dept WHERE emp.dept_id = dept.id;
 SELECT emp.name, dept.name FROM emp, dept WHERE emp.dept_id = dept.id;
 
 SELECT emp.name, dept.name FROM emp INNER JOIN dept ON emp.dept_id = dept.id;
+
+
+
+SELECT * FROM emp LEFT OUTER JOIN dept ON emp.dept_id = dept.id;
+SELECT emp.*, dept.id FROM emp LEFT OUTER JOIN dept ON emp.dept_id = dept.id;
+
+SELECT * FROM emp RIGHT OUTER JOIN dept ON emp.dept_id = dept.id;
+
+SELECT dept.*, emp.* FROM emp RIGHT OUTER JOIN dept ON emp.dept_id = dept.id;
