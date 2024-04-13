@@ -246,3 +246,22 @@ SELECT e1.name AS employee, e2.name AS employer FROM emp AS e1 LEFT OUTER JOIN e
 SELECT * FROM emp WHERE emp.salary < 5000
 UNION ALL
 SELECT * FROM emp WHERE emp.age > 50;
+
+
+SELECT * FROM emp WHERE emp.dept_id = (SELECT dept.id FROM dept WHERE name = "销售部");
+
+SELECT * FROM emp WHERE entrydate > (SELECT entrydate FROM emp WHERE name = "方东白");
+
+SELECT * FROM emp WHERE dept_id in (SELECT id FROM dept WHERE name = "销售部" OR name = "市场部");
+
+SELECT * FROM emp WHERE salary > ALL ( SELECT salary FROM emp WHERE emp.dept_id = (SELECT id FROM dept WHERE dept.name = "财务部"));
+
+SELECT * FROM emp;
+
+
+SELECT * FROM emp WHERE salary > ANY ( SELECT salary FROM emp WHERE emp.dept_id = (SELECT id FROM dept WHERE dept.name = "研发部"));
+
+SELECT job, salary FROM emp WHERE name = "鹿杖客" OR name = "宋远桥";
+SELECT * FROM emp WHERE (job, salary) IN (SELECT job, salary FROM emp WHERE name = "鹿杖客" OR name = "宋远桥");
+
+SELECT * FROM (SELECT * FROM emp WHERE entrydate > "2006-01-01") AS e LEFT JOIN dept AS d ON d.id = e.dept_id;
