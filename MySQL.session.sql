@@ -265,3 +265,32 @@ SELECT job, salary FROM emp WHERE name = "鹿杖客" OR name = "宋远桥";
 SELECT * FROM emp WHERE (job, salary) IN (SELECT job, salary FROM emp WHERE name = "鹿杖客" OR name = "宋远桥");
 
 SELECT * FROM (SELECT * FROM emp WHERE entrydate > "2006-01-01") AS e LEFT JOIN dept AS d ON d.id = e.dept_id;
+
+
+create table salgrade(
+grade int,
+losal int,
+hisal int
+) comment '薪资等级表';
+
+insert into salgrade values (1,0,3000);
+insert into salgrade values (2,3001,5000);
+insert into salgrade values (3,5001,8000);
+insert into salgrade values (4,8001,10000);
+insert into salgrade values (5,10001,15000);
+insert into salgrade values (6,15001,20000);
+insert into salgrade values (7,20001,25000);
+insert into salgrade values (8,25001,30000);
+
+
+SELECT e.name, e.age, d.name FROM emp AS e, dept as d WHERE e.dept_id = d.id;
+
+SELECT * FROM emp AS e INNER JOIN dept AS d ON e.dept_id = d.id WHERE e.age < 30;
+
+SELECT DISTINCT d.* FROM emp AS e INNER JOIN dept AS d ON e.dept_id = d.id;
+
+SELECT * FROM emp AS e LEFT OUTER JOIN dept AS d ON e.dept_id = d.id WHERE e.age > 40;
+SELECT * FROM emp AS e WHERE e.age > 40;
+
+SELECT e.name, s.grade FROM emp AS e, salgrade AS s WHERE e.salary >= s.losal and e.salary <= s.hisal;
+
