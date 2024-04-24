@@ -1,6 +1,7 @@
 // #import "@preview/fuzzy-cnoi-statement:0.1.0": 
 #import "fuzzy-cnoi-statement/template.typ": *;
 #set text(font: ("Consolas", "Microsoft YaHei"))
+#let trans(cn, en) = [#strong([#cn (#emph([#en]))])]
 = 数据库
 
 == 数据库概述
@@ -465,3 +466,32 @@ SELECT 字段列表 FROM 表B ...;
 
 - 表子查询\
   子查询返回的结果是多行多列，常用操作符：`IN`
+
+== 事务
+
+=== 事务简介
+
+- 事务：一组操作的集合，它是一个不可分割的工作单位，事务会把所有操作作为一个整体一起向系统提交或撤销操作请求，即所有操作要么同时成功或者同时失败
+
+- 默认 MySQL 的事务时自动提交的，当执行一条 DML 语句，MySQL 会立即隐式地提交事务
+\ \ \
+=== 事务操作
+
+- 查看 / 设置事务提交方式
+
+  ```sql
+  SELECT @@autocommit;
+  SET @@autocommit = 0;
+  ```
+
+- 开启事务\ `START TRANSACTION;`
+- 提交\ `COMMIT;`
+- 回滚事务\ `ROLLBACK;`
+
+=== 事务特性
+
+1. #trans([原子性], [atomicity])：事务是不可分割的最小操作单元，要么全部成功，要么全部失败
+
+2. #trans([一致性], [consistency])：事务完成时，必须使所有的数据都保持一致状态
+3. #trans([隔离性], [isolation])：数据库系统提供的隔离机制，保证事务在不受外部并发操作影响的独立环境下运行
+4. #trans([持久性], [durability])：事务一旦提交或回滚，它对数据库中的数据的改变是永久的

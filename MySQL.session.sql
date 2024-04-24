@@ -294,3 +294,23 @@ SELECT * FROM emp AS e WHERE e.age > 40;
 
 SELECT e.name, s.grade FROM emp AS e, salgrade AS s WHERE e.salary >= s.losal and e.salary <= s.hisal;
 
+
+START TRANSACTION;
+SELECT @@AUTOCOMMIT;
+SET @@AUTOCOMMIT = 0;
+DROP TABLE IF EXISTS `account`;
+create table account(
+id int primary key AUTO_INCREMENT comment 'ID',
+name varchar(10) comment '姓名',
+money double(10,2) comment '余额'
+) comment '账户表';
+
+insert into account(name, money) VALUES ('张三',2000), ('李四',2000);
+
+SELECT * FROM `account`;
+
+UPDATE `account` SET money = money - 1000 WHERE name = "张三";
+UPDATE `account` SET money = money + 1000 WHERE name = "李四";
+
+COMMIT;
+ROLLBACK;
