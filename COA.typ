@@ -720,3 +720,30 @@
 2. 浮点数的表示范围
   - 以通式 $N = S times r ^ j$ 为例，设浮点数阶码的数值位取 $m$ 位，尾数的数值位取 $n$ 为，其最大正数为 $2 ^ ((2 ^ m dash.en 1)) times (1 dash.en 2 ^ (dash.en n))$，最小正数为 $2 ^ (dash.en(2 ^ m dash.en 1)) times 2 ^ (dash.en n)$；最小负数为 $dash.en 2 ^ ((2 ^ m dash.en 1)) times (1 dash.en 2 ^ (dash.en n))$，最大负数为 $dash.en 2 ^ (dash.en(2 ^ m dash.en 1)) times 2 ^ (dash.en n)$。
   - 当浮点数阶码大于最大阶码时，称为上溢，此时机器停止运算，进行中断溢出处理；当浮点数阶码小于最小阶码时，称为下溢，此时机器通常将尾数强置为零，继续运行。
+
+== 定点运算
+
+=== 乘法运算
+
+==== 原码一位乘运算
+
+- 运算规则：
+  1. 乘积的符号位由两原码符号位异或运算结果决定
+  2. 乘积的数值部分由两数绝对值相乘
+  
+  以小数为例：\
+    #indent#indent $[x]_原 = x_0.x_1x_2···x_n$
+    #indent $[y]_原 = y_0.y_1y_2···y_n$\
+  #indent#indent $[x]_原 times [y]_原 = x_0 xor y_0.(0.x_1x_2···x_n) times (0.y_1y_2···y_n)$\ 可得递推公式，其中 $z_0 = 0$，$(0.x_1x_2···x_n) times (0.y_1y_2···y_n) = z_n$ $ z_i = 2 ^ (dash.en 1) times (y_(n dash.en i + 1) times x + z_(i dash.en 1)) $
+
+==== 补码乘法
+
+1. 补码一位乘运算规则\
+  设被乘数 $[x]_补 = x_0.x_1x_2···x_n$\
+  设乘数 $[y]_补 = y_0.y_1y_2···y_n$
+  1. 设被乘数 $x$ 符号任意，乘数 $y$ 符号为正，则 $ [x]_补 times [y]_补 = [x]_补 =  [x]_补 times y = 2 ^(n + 1) times y + x times y = [x]_补 times y $ 可得递推公式，其中 $z_0 = 0$，$[x times y]_补 = [z_n]_补$ $ [z_i]_补 = 2 ^ (-1) times (y_(n dash.en i + 1) times [x]_补 + [z_(i dash.en 1)]_补) $
+
+  2. 设被乘数 $x$ 符号任意，乘数 $y$ 符号为负，则 $ y = [y]_补 dash.en 2 = 1.y_1y_2···y_n dash.en 2 = 0.y_1y_2···y_n dash.en 1 $$ x times y = x(0.y_1y_2···y_n dash.en 1) = x(0.y_1y_2···y_n) dash.en x $$ [x times y]_补 = [x times (0.y_1y_2···y_n)]_补 + [dash.en x]_补 = [x]_补 times (0.y_1y_2···y_n) + [dash.en x]_补 $可得递推公式，其中 $z_0 = 0$，$[x times y]_补 = [z_n]_补 + [dash.en x]_补$ $ [z_i]_补 = 2 ^ (-1) times (y_(n dash.en i + 1) times [x]_补 + [z_(i dash.en 1)]_补) $
+
+  3. 被乘数 $x$ 和 乘数 $y$ 符号均为任意\
+   按补码乘法规则，其基本算法可用一个统一的公式表示为 $ [x times y]_补 = [x]_补 times (0.y_1y_2···y_n) + [dash.en x]_补 times y_0 $在 $mod 2$ 的前提下，易证 $[dash.en x]_补 = dash.en[x]_补$\ 可得递推公式，其中 $z_0 = 0, y_(n + 1) = 0$，$[x times y]_补 = [z_n]_补 + (y_1 - y_0) times [x]_补$ $ [z_i]_补 = 2 ^ (dash.en 1) times ([z_(i dash.en 1)]_补 + (y_(n dash.en i + 2) dash.en y_(n dash.en i + 1)) times [x]_补) $
